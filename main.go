@@ -83,6 +83,13 @@ func replaceTitle(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write([]byte("read origin url response failed" + err.Error()))
 		return
 	}
+	respString := string(respBytes)
+
+	// response content check
+	if !strings.HasPrefix(respString, "<rss") {
+		_, _ = w.Write([]byte("origin url is not rss!"))
+		return
+	}
 
 	// unmarshal to object, in order to parse title
 	rss := RSS{}
@@ -97,7 +104,7 @@ func replaceTitle(w http.ResponseWriter, r *http.Request) {
 	// replace title
 	trimTitle := strings.Trim(rss.Channel.Title, " \n")
 	log.Println("replace title [", trimTitle, "] to [", unescapeQuery, "]")
-	newRss := strings.Replace(string(respBytes), trimTitle, unescapeQuery, 1)
+	newRss := strings.Replace(respString, trimTitle, unescapeQuery, 1)
 
 	_, _ = w.Write([]byte(newRss))
 }
