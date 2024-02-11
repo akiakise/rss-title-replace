@@ -20,6 +20,13 @@ which will show you a more discernible title in BT clients:
 ![dmhy rss title replaced](resources/dmhy-rss-title-replaced.png)
 ![qbittorrent rss replaced page](resources/qbittorrent-rss-replaced-page.png)
 
+## Usage
+
+```bash
+docker pull akise/rss-title-replace
+docker run --name rss-title-replace -p 127.0.0.1:8080:8080 -d akise/rss-title-replace
+```
+
 ## LICENSE
 
 GPL-3.0
