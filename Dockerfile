@@ -2,12 +2,9 @@ FROM golang:1.21
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY go.mod go.sum *.go ./
 
-RUN go env -w GOPROXY=https://goproxy.cn,direct
-RUN go mod download
-
-COPY *.go ./
+RUN go env -w GOPROXY=https://goproxy.cn,direct && go mod download
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/rss-title-replace
 

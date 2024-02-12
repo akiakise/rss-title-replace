@@ -86,8 +86,8 @@ func replaceTitle(w http.ResponseWriter, r *http.Request) {
 	respString := string(respBytes)
 
 	// response content check
-	if !strings.HasPrefix(respString, "<rss") {
-		_, _ = w.Write([]byte("origin url is not rss!"))
+	if !strings.Contains(respString, "<rss") {
+		_, _ = w.Write([]byte("origin url is not rss, responseString: " + respString))
 		return
 	}
 
